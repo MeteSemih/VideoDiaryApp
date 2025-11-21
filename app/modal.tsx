@@ -11,7 +11,7 @@ import { useRouter } from 'expo-router';
 import { videoMetadataSchema } from './lib/validation';
 import { useTrimmingMutation } from '@/hooks/useTrimmingMutation';
 import * as FileSystem from 'expo-file-system/legacy';
-
+import { Platform } from "react-native";
 const TRIM_DURATION = 5;
 
 export default function ModalScreen() {
@@ -78,7 +78,6 @@ export default function ModalScreen() {
           setCroppedUri(result);
           setStep(3);
           setTrimming(false);
-          Alert.alert('Success', 'Video trimmed successfully');
         },
         onError: (error) => {
           setTrimming(false);
@@ -153,7 +152,22 @@ export default function ModalScreen() {
 
   return (
     <View className="flex-1 bg-gray-900">
-      {/* Step 1: Video Seçme */}
+
+      
+
+<View 
+  className="items-center"
+  style={{ marginTop: Platform.OS === "android" ? 32 : 12 }}
+>
+  <Text className="text-3xl font-extrabold text-white">
+    <Text className="text-blue-400">Choose</Text> Video
+  </Text>
+
+  <View className="w-24 h-1 mt-2 bg-blue-500 rounded-full opacity-80" />
+</View>
+
+
+      {/* Step 1: Choose Video */}
       {step === 1 && !videoUri && (
         <View className="items-center justify-center flex-1 px-4">
           <Pressable

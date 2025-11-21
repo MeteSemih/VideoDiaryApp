@@ -83,7 +83,7 @@ export const useVideoStore = create<VideoStore>((set, get) => ({
         let parsedVideos = JSON.parse(data);
         
         if (Array.isArray(parsedVideos)) {
-          // Tüm video dosyalarının var olup olmadığını kontrol et
+        
           const validatedVideos: CroppedVideo[] = [];
           
           for (const video of parsedVideos) {
@@ -95,7 +95,6 @@ export const useVideoStore = create<VideoStore>((set, get) => ({
             }
           }
           
-          // Sadece var olan videoları kaydet
           if (validatedVideos.length !== parsedVideos.length) {
             await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(validatedVideos));
           }
@@ -119,7 +118,6 @@ export const useVideoStore = create<VideoStore>((set, get) => ({
       // Videoyu kalıcı klasöre kopyala
       const permanentPath = await copyVideoToStorage(video.croppedPath, video.id);
 
-      // Video objesini güncelle (kalıcı path ile)
       const persistedVideo: CroppedVideo = {
         ...video,
         croppedPath: permanentPath,

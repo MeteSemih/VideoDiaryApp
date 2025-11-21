@@ -8,68 +8,35 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ActivityIndicator,
   ScrollView,
-  Dimensions,
 } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import VideoNotFound from '@/components/VideoNotFound';
 
-const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 export default function DetailsScreen() {
-  // Get video ID from URL parameters and initialize store/state
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const videos = useVideoStore((state) => state.videos);
   const deleteVideo = useVideoStore((state) => state.deleteVideo);
   const videoRef = useRef<Video>(null);
 
-  // Find the specific video to display
+  // Find the  video to display
   const video = videos.find((v) => v.id === id);
   console.log(`id = ${id}`)
   
-  // Video player state management
+
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Video not found state - show error message
   if (!video) {
-    return (
-      <GestureHandlerRootView className="flex-1">
-        <SafeAreaView className="flex-1 bg-gray-900">
-          <Animated.View
-            entering={FadeInDown.duration(500)}
-            className="items-center justify-center flex-1 px-6"
-          >
-            <View className="items-center">
-              <View className="p-4 mb-4 bg-gray-800 rounded-full">
-                <Ionicons name="alert-circle-outline" size={48} color="#ef4444" />
-              </View>
-              <Text className="mb-2 text-xl font-semibold text-white">
-                Video Not Found
-              </Text>
-              <Text className="mb-6 text-center text-gray-400">
-                This video is no longer available
-              </Text>
-              <AnimatedTouchableOpacity
-                entering={FadeInDown.duration(500).delay(200)}
-                onPress={() => router.back()}
-                className="px-8 py-3 bg-blue-600 rounded-xl"
-              >
-                <Text className="font-semibold text-white">Go Back</Text>
-              </AnimatedTouchableOpacity>
-            </View>
-          </Animated.View>
-        </SafeAreaView>
-      </GestureHandlerRootView>
-    );
+    return <VideoNotFound/>
   }
 
-  // Handle video deletion with confirmation dialog
   const handleDelete = () => {
     Alert.alert(
       'Delete Video',

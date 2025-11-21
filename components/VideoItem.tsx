@@ -59,7 +59,7 @@ const VideoItem = ({ item, onPress }: VideoItemProps) => {
             </View>
           </>
         ) : (
-          // Error fallback - Video yüklenemediğinde görüntülenecek
+          // Error fallback - Video yüklenemediğinde 
           <View className="items-center justify-center flex-1 bg-gray-800">
             <Ionicons name="alert-circle" size={32} color="#ef4444" />
             <Text className="px-2 mt-2 text-xs text-center text-red-400">

@@ -1,6 +1,6 @@
 // app/(tabs)/index.tsx veya app/index.tsx
-import EmptyView from '@/components/ItemComponent/EmptyView';
-import VideoItem from '@/components/ItemComponent/VideoItem';
+import EmptyView from '@/components/EmptyView';
+import VideoItem from '@/components/VideoItem';
 import { useVideoStore } from '@/store/videoStore';
 import { CroppedVideo } from '@/types/CroppedVideo';
 import { Ionicons } from '@expo/vector-icons';
@@ -21,7 +21,6 @@ const Main = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  // Load videos when component mounts
   useEffect(() => {
     loadVideos();
   }, [loadVideos]);
@@ -100,7 +99,6 @@ const Main = () => {
               </AnimatedPressable>
             </View>
 
-            {/* Search Bar with icon and clear button */}
             <Animated.View
               className="relative"
               entering={FadeInDown.duration(500).delay(200)}

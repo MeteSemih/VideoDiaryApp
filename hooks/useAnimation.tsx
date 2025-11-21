@@ -1,4 +1,4 @@
-import Animated, { useSharedValue, useAnimatedStyle, withSpring, withTiming, interpolate, Extrapolate } from 'react-native-reanimated';
+import { useSharedValue, useAnimatedStyle, withSpring, withTiming, interpolate, Extrapolate } from 'react-native-reanimated';
 import type { SharedValue } from 'react-native-reanimated';
 import { useEffect } from 'react';
 

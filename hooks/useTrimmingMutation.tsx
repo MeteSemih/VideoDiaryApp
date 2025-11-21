@@ -1,4 +1,3 @@
-// hooks/useTrimmingMutation.ts
 import { useMutation } from '@tanstack/react-query';
 import * as TrimVideo from 'expo-trim-video';
 
