@@ -1,4 +1,3 @@
-// app/(tabs)/index.tsx veya app/index.tsx
 import EmptyView from '@/components/EmptyView';
 import VideoItem from '@/components/VideoItem';
 import { useVideoStore } from '@/store/videoStore';
