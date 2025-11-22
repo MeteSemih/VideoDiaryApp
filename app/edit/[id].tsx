@@ -102,7 +102,7 @@ export default function EditVideoScreen() {
     });
 
     if (!validation.success) {
-      // Map validation errors to form fields
+    
       const errorMap: { name?: string; description?: string } = {};
       validation.error.issues.forEach((issue) => {
         const field = issue.path[0] as string;
@@ -118,7 +118,6 @@ export default function EditVideoScreen() {
     return true;
   };
 
-  // Save video metadata changes
   const handleSave = async () => {
     if (!validateForm()) {
       return;

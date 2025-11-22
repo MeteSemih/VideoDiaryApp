@@ -48,12 +48,12 @@ const Main = () => {
     );
   }
 
-  // ✅ Empty state - show empty view when no videos exist
+  //  Empty state - show empty view when no videos exist
   if (!videos || videos.length === 0) {
     return <EmptyView onAddVideo={handleAddVideo} />
   }
 
-  // ✅ Filter videos based on search query
+  //  Filter videos based on search query
   const filteredVideos = videos.filter(video =>
     video.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

@@ -1,4 +1,3 @@
-// app/modal.tsx
 import { Alert, Pressable, TextInput, View as RNView, View, Text } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import * as ImagePicker from 'expo-image-picker';

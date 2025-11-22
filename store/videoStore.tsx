@@ -18,10 +18,10 @@ interface VideoStore {
 const STORAGE_KEY = 'videos_data';
 const VIDEO_DIR = `${FileSystem.documentDirectory}videos/`;
 
-// Videoları kalıcı klasöre kopyala
+// Copy videos to permanent folder
 const copyVideoToStorage = async (sourceUri: string, videoId: string): Promise<string> => {
   try {
-    // Klasör var mı kontrol et, yoksa oluştur
+    // Check if the folder exists, if not, create it
     const dirInfo = await FileSystem.getInfoAsync(VIDEO_DIR);
     if (!dirInfo.exists) {
       await FileSystem.makeDirectoryAsync(VIDEO_DIR, { intermediates: true });
@@ -29,7 +29,7 @@ const copyVideoToStorage = async (sourceUri: string, videoId: string): Promise<s
     const fileName = `video_${videoId}.mp4`;
     const destUri = `${VIDEO_DIR}${fileName}`;
 
-    // Dosya zaten varsa, eski dosyayı sil
+    // If the file already exists, delete the old file
     try {
       const fileInfo = await FileSystem.getInfoAsync(destUri);
       if (fileInfo.exists) {
@@ -39,13 +39,13 @@ const copyVideoToStorage = async (sourceUri: string, videoId: string): Promise<s
       console.warn('Eski dosya silme uyarısı:', err);
     }
 
-    // Videoyu kopyala
+    // Copy video
     await FileSystem.copyAsync({
       from: sourceUri,
       to: destUri,
     });
 
-    // Dosyanın gerçekten kopyalandığını kontrol et
+    // Check that the file was actually copied
     const copiedFileInfo = await FileSystem.getInfoAsync(destUri);
     if (!copiedFileInfo.exists) {
       throw new Error('Video dosyası başarıyla kopyalanmadı');
@@ -59,7 +59,7 @@ const copyVideoToStorage = async (sourceUri: string, videoId: string): Promise<s
   }
 };
 
-// Video dosyasının var olup olmadığını kontrol et
+
 const validateVideoExists = async (path: string): Promise<boolean> => {
   try {
     const fileInfo = await FileSystem.getInfoAsync(path);
@@ -115,7 +115,7 @@ export const useVideoStore = create<VideoStore>((set, get) => ({
 
   addVideo: async (video: CroppedVideo) => {
     try {
-      // Videoyu kalıcı klasöre kopyala
+      // Copy video to permanent folder
       const permanentPath = await copyVideoToStorage(video.croppedPath, video.id);
 
       const persistedVideo: CroppedVideo = {
@@ -136,11 +136,11 @@ export const useVideoStore = create<VideoStore>((set, get) => ({
     }
   },
 
+  // Delete file
   deleteVideo: async (id: string) => {
     try {
       const video = get().videos.find(v => v.id === id);
-
-      // Fiziksel dosyayı sil
+ 
       if (video) {
         try {
           const fileInfo = await FileSystem.getInfoAsync(video.croppedPath);

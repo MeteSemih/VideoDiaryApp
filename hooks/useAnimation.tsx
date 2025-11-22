@@ -134,7 +134,6 @@ export const useParallax = (scrollOffset: SharedValue<number>) => {
 
 /**
  * Shake Animasyonu
- * Hata durumunda sallantı
  */
 export const useShake = (shouldShake: boolean) => {
   const translateX = useSharedValue(0);
